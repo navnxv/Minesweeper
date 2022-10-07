@@ -1,0 +1,44 @@
+<!--Copyright (C) 2022 Navpreet Singh, All Rights Reserved-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Linking .css to the html and adding titel to the page-->
+        <link rel = "stylesheet" href = "Styles/style-base.css">
+        <link rel = "stylesheet" href = "Styles/style-game.css">
+        <title>
+            Minesweeper by Nav
+        </title>
+    </head>
+    <body>
+        <!-- Adding header, which includes the name of the game and the navigation menu -->
+        <header class = "Heading">
+            <h1>Minesweeper</h1>
+            <nav>  
+                <a href = "index.html">Home</a>
+                <a href = "mainGame.html">Play Game</a>
+             </nav>
+        </header>
+
+        <!-- Making a game window -->
+        <div class = "MainWindow">
+            <div class = "ResetBlock">
+                <label class = "labelDesign">00:00</label>
+                <button class = "SmileyButton"><img src = "/Images/smile.png" alt = "Reset" class = "SmileyImage"></button>
+                <label class = "labelDesign">25</label>
+            </div>
+            <div class = "MainGame">
+                <!-- Making a table to make the game work -->
+                <table id = "game-board"><!--Generating Javascript here--></table>                   
+            </div>
+        </div>
+        <!-- Adding a footer -->
+        <footer>
+            Copyright &copy 2022 Navpreet Singh, All Rights Reserved
+        </footer>
+        <script type = "module" src = "./scripts/main.js"></script>
+        <script >
+        
+        </script>
+    </body>
+    
+</html>

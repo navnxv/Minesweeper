@@ -1,0 +1,64 @@
+/* Copyright (C) 2022 Navpreet Singh, All Rights Reserved */
+/* This is a base page used in eveery .html file for this project */
+/* Making changes to the entire body of the html page */
+body{
+	font-family:verdana;
+	background-image: url("/Images/Windows95.jpg");
+	background-position: center;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	color:white;
+}
+
+/* .Heading refers to the header tag of the html page */
+.Heading{
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+.Heading h1{
+	font-weight: lighter;
+	margin-left: 7%;
+	margin-top: 5%;
+}
+
+/* Making changes to the navigation bar and the anchor a tag in the header*/
+nav{
+	margin-top: 5%;
+	margin-right: 8%;
+}
+nav a{
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+	color: white;
+}
+
+/* Designing and placing the footer at the bottom of the screen */
+footer{
+	font-size: 25px;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	display: flex;
+	justify-content: center;;
+	left: 0;
+	background-color: Black;
+}
+
+/* Making it navigate screen to screen */
+@media screen and (max-width: 900px) {
+	body{
+		background-image: url("/Images/anroid.jpg");
+		background-position: center;
+		background-attachment: fixed;
+		background-repeat: no-repeat;
+		background-size: cover;
+		
+	}
+	footer{
+		font-size: 10px;
+	}
+}
+
