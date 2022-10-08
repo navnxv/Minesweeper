@@ -1,15 +1,18 @@
 
 
-export default class Mine{
+export default class Cell{
     constructor(){
         this.exploded = false;
+        this.mine = null;
         this.adjacentMines = 0;
-        this.mine = false;
-
     }
 
     addMine(){
         this.mine = true;
+    }
+
+    removeMine(){
+        this.mine = false;
     }
 
     hasMine(){
