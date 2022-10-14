@@ -2,13 +2,15 @@
 /* This is a base page used in eveery .html file for this project */
 /* Making changes to the entire body of the html page */
 body{
-	font-family:verdana;
+	
 	background-image: url("/Images/Windows95.jpg");
 	background-position: center;
 	background-attachment: fixed;
 	background-repeat: no-repeat;
 	background-size: cover;
 	color:white;
+	font-family: 'Comforter Brush', cursive;
+	
 }
 
 /* .Heading refers to the header tag of the html page */
@@ -16,6 +18,8 @@ body{
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
+	font-size: 30px;
+	height: 10%;
 }
 .Heading h1{
 	font-weight: lighter;
@@ -33,6 +37,7 @@ nav a{
     padding: 14px 16px;
     text-decoration: none;
 	color: white;
+	font-size: 40px;
 }
 
 /* Designing and placing the footer at the bottom of the screen */

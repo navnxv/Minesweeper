@@ -2,13 +2,16 @@
 /* .MainWindow window is the game window which includes the time, flags and the entire game */
 .MainWindow{
 	border: 2px black solid;
-	width: 435px;
+	width: 750px;
 	margin: auto;
-	height: 470px;
+	height: 750px;
 	background-color: grey;
 	margin-top: 5%;
 	border-radius: 10px;
+	margin-bottom: 50px;;
+	margin-top : 0px;
 }
+
 /* .ResetBlock consists the time, the reset smiley button and the number of flags(bombs) */
 .ResetBlock{
 	border: 1px black solid;
@@ -18,20 +21,24 @@
 	background-color: rgb(138, 138, 138);
 	border-radius: 10px;
 }
+
 /* Modifying the size of the smiley image */
 .SmileyImage{	
 	width: 15px;
 	height: 15px;
 }
+
 /* .MainGame is in the .MainWindow and consists of the table */
 .MainGame{
 	margin: auto;
-	margin-top: 1%;
-	height: 425px;
-	width: 425px;
+	margin-top: 0px;
 	border: 1px black solid;
+	border-radius: 10px;
 	background-color: rgb(194, 194, 194);
+	overflow: hidden;
+	height: 705px;
 }
+
 /* .labelDesign is the design of the time and the flag label */
 .labelDesign{
 	background-color:black;
@@ -41,20 +48,89 @@
 	display: flex;
 	justify-content: center;
 }
+table{
+	width: 100%;
+	height: 100%;
+}
 /* designing the table data in the table rows to rsiplay them as blocks of minesweeper */
-td{
-	border:1px solid black;
+.cell{
+	font-size: 1.5rem;
+	text-align: center;
+	border-radius: 5px;
+	border:1px solid rgb(235, 235, 235);
+	background-color: black;
+	margin: 0 0 0 0;
 	width: 25px;
-	height: 20px;
-	border-top: 2px solid gray;
-	border-right: 2px solid darkslategray;
-	border-left: 2px solid gray;
-	border-bottom: 2px solid darkslategray;
+	height: 25px;
 }
 
 .flag{
-	width: 100%;
+	margin-top: 10px;
+	width: 30px;
 	height: 100%;
-
 }
 
+.clicked{
+	background-color: #fff;
+	color: green;
+	border: 1px inset red;
+}
+#lose{
+	display: none;
+	position: absolute;
+	margin: 0px;
+	width : 5000px;
+	height: 1200px;
+	background-color: red;
+	opacity: 0.2;
+	left: 0;
+	top: 0;
+}
+
+dialog{
+	position: absolute;
+	font-size: 30px;
+	
+	
+}
+
+.dlg-flex{
+	display: flex;
+	justify-content: space-evenly;
+}
+
+#cancel-btn{
+	background-color: rgb(245, 98, 98);
+	font-family: 'Comforter Brush', cursive;
+	font-size: 30px;
+}
+
+#cancel-btn:hover{
+	cursor: pointer;
+}
+
+#CancelPlay{
+	display:none;
+	position: absolute;
+	margin:auto;
+	width : 750px;
+	height: 720px;
+	background-color: grey;
+	opacity: 0.4;
+	border-radius: 10px;
+}
+
+#ok-btn{
+	font-family: 'Comforter Brush', cursive;
+	font-size: 30px;
+	background-color: rgb(115, 218, 115);
+	width: 100px;
+}
+
+#ok-btn:hover{
+	cursor: pointer;
+}
+
+#dlg-msg{
+	margin-bottom: 30px;
+}

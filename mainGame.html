@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comforter+Brush&display=swap" rel="stylesheet">
         <!-- Linking .css to the html and adding titel to the page-->
         <link rel = "stylesheet" href = "Styles/style-base.css">
         <link rel = "stylesheet" href = "Styles/style-game.css">
@@ -10,6 +13,7 @@
         </title>
     </head>
     <body>
+        <div id="lose">   </div>
         <!-- Adding header, which includes the name of the game and the navigation menu -->
         <header class = "Heading">
             <h1>Minesweeper</h1>
@@ -18,27 +22,35 @@
                 <a href = "mainGame.html">Play Game</a>
              </nav>
         </header>
-
+        <div id="lose">   </div>
         <!-- Making a game window -->
         <div class = "MainWindow">
             <div class = "ResetBlock">
-                <label class = "labelDesign">00:00</label>
-                <button class = "SmileyButton"><img src = "/Images/smile.png" alt = "Reset" class = "SmileyImage"></button>
+                <label class = "labelDesign" id="timer">0</label>
+                <button id="ResetButton"><img src = "/Images/smile.png" alt = "Reset" class = "SmileyImage"></button>
                 <label class = "labelDesign">25</label>
             </div>
-            <div class = "MainGame">
+
+            <dialog id = "my-dlg" open>
+                <div id="dlg-msg">LOSERRRRRRRRRRR. Wanna get your ass kicked again? </div>
+                <div class = "dlg-flex">
+                    <button id = "cancel-btn"> Exit?</button>
+                    <button id = "ok-btn"> Go Again</button>
+                </div>
+            </dialog>
+            <div id="CancelPlay">   </div>
+            <div class = "MainGame" id = "game-board">
                 <!-- Making a table to make the game work -->
-                <table id = "game-board"><!--Generating Javascript here--></table>                   
+                <!--Generating Javascript here-->
             </div>
         </div>
+        
         <!-- Adding a footer -->
         <footer>
             Copyright &copy 2022 Navpreet Singh, All Rights Reserved
         </footer>
         <script type = "module" src = "./scripts/main.js"></script>
-        <script >
         
-        </script>
     </body>
     
 </html>
