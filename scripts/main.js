@@ -7,6 +7,7 @@ const count = 10;
 document.addEventListener('DOMContentLoaded', main);
 
 function main() {    
+    
     this.board = new Board(size,count);
 }
 

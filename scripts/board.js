@@ -13,7 +13,7 @@ export default class Board{
         this.init(); 
         this.mineField = new MineField(this.size, this.count);
         let clickCounter = 1;
-
+        this.flagCounter = 0;
         
 
         document.getElementById("cancel-btn").addEventListener("click", event => {
@@ -26,13 +26,16 @@ export default class Board{
 
         document.getElementById("ResetButton").addEventListener("click", event => {
             location.reload();
-        })
+        });
+
+        document.getElementById("totalFlags").innerHTML = this.count;
 
         this.board.addEventListener("click", event => {
             
             let col = parseInt(event.target.dataset.column);
             let row = parseInt(event.target.dataset.row);
             if(clickCounter == 1){
+                
                 this.startTimer();
                 // if(this.mineField.theMineField[row][col].hasMine()){
                 //     this.mineField.theMineField[row][col].removeMine();
@@ -76,22 +79,30 @@ export default class Board{
         });
 
         this.board.addEventListener("contextmenu", event => {
-            try{
+            //try{
                 if(event != undefined){
                     event.preventDefault();
                     let col = parseInt(event.target.dataset.column);
                     let row = parseInt(event.target.dataset.row);
-                    if(!this.mineField.theMineField[row][col].getReveal()){
+                    if(isNaN(row) && isNaN(col)){
+                        let rowParent = event.target.parentElement;
+                        let colParent = event.target.parentElement;
+
+                        this.flag(event,rowParent, colParent);
+                        this.Win();
+                    }
+                    else if(!this.mineField.theMineField[row][col].getReveal()){
                         this.flag(event,row, col);
                         this.Win();
     
                     }
                 }
                 
-            }
-            catch(e){
-    
-            }
+            //}
+            //catch(e){
+            //    console.log(e);
+            //}
+            console.log(this.flagCounter);
         } );
         
     }
@@ -126,9 +137,10 @@ export default class Board{
 
         if(isNaN(row) && isNaN(col)){
             try{
-                console.log("dsfsd");
+                //console.log("dsfsd");
                 this.mineField.theMineField[parentRow][parentCol].removeFlag();
                 document.getElementById(`cell-${parentRow}-${parentCol}`).innerHTML = "";
+                this.flagCounter--;
                 return;
             }   
             catch{
@@ -140,11 +152,16 @@ export default class Board{
             if(mineCell.hasFlag()){
                 mineCell.removeFlag();
                 flagUI.innerHTML = "";
+                this.flagCounter--;
             }
     
             else{
-                mineCell.addFlag();
-                flagUI.innerHTML = "<img src = './Images/flag.png' alt = 'f' class = 'SmileyImage flag'>";    
+                if(this.flagCounter <= 10 ){
+                    this.flagCounter++;
+                    mineCell.addFlag();
+                    flagUI.innerHTML = "<img src = './Images/flag.png' alt = 'f' class = 'SmileyImage flag'>";    
+
+                }
             }
         }
         // 
@@ -255,6 +272,7 @@ export default class Board{
             console.log("YOu WIN");          
         }
     }  
+
     Lose(){
         this.stopTimer();
         document.getElementById("lose").style.display = "block";
