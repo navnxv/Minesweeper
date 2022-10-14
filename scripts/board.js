@@ -4,7 +4,6 @@
 import MineField from './MineField.js';
 
 
-
 export default class Board{
     constructor(size = 15, count = 25){
         this.size = size;
@@ -13,11 +12,10 @@ export default class Board{
         this.init(); 
         this.mineField = new MineField(this.size, this.count);
         let clickCounter = 1;
-        this.flagCounter = 0;
+        this.flagCounter = this.count;
         
 
         document.getElementById("cancel-btn").addEventListener("click", event => {
-            
             this.Cancel();
         });
         document.getElementById("ok-btn").addEventListener("click", event => {
@@ -30,37 +28,36 @@ export default class Board{
 
         document.getElementById("totalFlags").innerHTML = this.count;
 
-        this.board.addEventListener("click", event => {
-            
+        this.board.addEventListener("click", event => { 
             let col = parseInt(event.target.dataset.column);
             let row = parseInt(event.target.dataset.row);
             if(clickCounter == 1){
-                
                 this.startTimer();
-                // if(this.mineField.theMineField[row][col].hasMine()){
-                //     this.mineField.theMineField[row][col].removeMine();
-                //     this.mineField.theMineField[0][0].addMine();
-                // }
+                try{
+                    if(this.mineField.theMineField[row][col].hasMine()){
+                        console.log("creating new");
+                        this.mineField = new MineField(this.size, this.count);
+                        this.init();
+                        
+                        return;
+                    }
+                }
+                catch{}
                 clickCounter ++;
             }
-            
-            
-            try{
-                
-                
+                       
+            try{               
                 if(this.mineField.theMineField[row][col].hasFlag()){
                     return;
                 }
-                //console.log(row +", "+col);
+                
                 if(this.mineField.isThereAMineAt(row,col)){
-                    //console.log("Mine yes at " +row +", "+col);
                     this.Lose();
                 }
     
                 else{
                     this.adjacentNumbers(row, col);
                     this.styleClickedCell(row,col);
-                    
                 }
     
                 if(this.mineField.theMineField[row][col].hasMine()){
@@ -72,39 +69,26 @@ export default class Board{
                 }
                 
             }
-            catch(e){
-                //console.log(e);
-            }
+            catch{}            
             
         });
 
         this.board.addEventListener("contextmenu", event => {
-            //try{
+            try{
                 if(event != undefined){
                     event.preventDefault();
                     let col = parseInt(event.target.dataset.column);
                     let row = parseInt(event.target.dataset.row);
-                    if(isNaN(row) && isNaN(col)){
-                        let rowParent = event.target.parentElement;
-                        let colParent = event.target.parentElement;
 
-                        this.flag(event,rowParent, colParent);
-                        this.Win();
-                    }
-                    else if(!this.mineField.theMineField[row][col].getReveal()){
+                    if(!this.mineField.theMineField[row][col].getReveal()){
                         this.flag(event,row, col);
                         this.Win();
-    
                     }
                 }
-                
-            //}
-            //catch(e){
-            //    console.log(e);
-            //}
-            console.log(this.flagCounter);
-        } );
+            }
+            catch{}
         
+        } );
     }
     
 
@@ -130,76 +114,49 @@ export default class Board{
     }   
 
 
-    flag(event, row, col){        
+    flag(event, row, col){   
+            
         let flagUI = document.getElementById(`cell-${row}-${col}`);
-        let parentRow = event.target.parentElement.dataset.row;
-        let parentCol = event.target.parentElement.dataset.column;
-
-        if(isNaN(row) && isNaN(col)){
-            try{
-                //console.log("dsfsd");
-                this.mineField.theMineField[parentRow][parentCol].removeFlag();
-                document.getElementById(`cell-${parentRow}-${parentCol}`).innerHTML = "";
-                this.flagCounter--;
-                return;
-            }   
-            catch{
-                return;
-            }
+        let mineCell = this.mineField.theMineField[row][col];
+        if(mineCell.hasFlag()){
+            mineCell.removeFlag();
+            flagUI.innerHTML = "";
+            this.flagCounter++;
+            this.updateFlagsUi();
         }
-        else{
-            let mineCell = this.mineField.theMineField[row][col];
-            if(mineCell.hasFlag()){
-                mineCell.removeFlag();
-                flagUI.innerHTML = "";
-                this.flagCounter--;
-            }
     
-            else{
-                if(this.flagCounter <= 10 ){
-                    this.flagCounter++;
-                    mineCell.addFlag();
-                    flagUI.innerHTML = "<img src = './Images/flag.png' alt = 'f' class = 'SmileyImage flag'>";    
-
-                }
+        else{
+            if(this.flagCounter > 0 ){
+                this.flagCounter--;
+                mineCell.addFlag();
+                flagUI.innerHTML = "🚩";    
+                this.updateFlagsUi();
             }
         }
-        // 
     }
+    
+    
 
     bombs(){
         for(let i =0; i<=14;i++){
             for (let j = 0; j < this.size; j++){
-                
                 if(this.mineField.theMineField[i][j].getAdj() > 0){
-                    //document.getElementById(`cell-${i}-${j}`).innerHTML = this.mineField.theMineField[i][j].getAdj();
-                    
+                    document.getElementById(`cell-${i}-${j}`).innerHTML = this.mineField.theMineField[i][j].getAdj();
                 }
                 if(this.mineField.theMineField[i][j].hasMine()){
-                    //this.mineField.theMineField[i][j].setReveal();
-                    document.getElementById(`cell-${i}-${j}`).innerHTML = "<img src = './Images/bombs.jpg' alt ='b' class = 'flag'> ";
-                    
+                    document.getElementById(`cell-${i}-${j}`).innerHTML = "	&#128128;";
                 }
-                
-                
             }
         }
     }
 
     adjacentNumbers(row, col){
-        try{
-            if(this.mineField.theMineField[row][col].getAdj() > 0){
-                document.getElementById(`cell-${row}-${col}`).innerHTML = this.mineField.theMineField[row][col].getAdj();
-            }
-
-        }
-        catch{
-            return;
+        if(this.mineField.theMineField[row][col].getAdj() > 0){
+            document.getElementById(`cell-${row}-${col}`).innerHTML = this.mineField.theMineField[row][col].getAdj();
         }
     }
 
     styleClickedCell(row, col){
-
         try{
             this.mineField.theMineField[row][col].setReveal();
             let clicked = document.querySelector(`#cell-${row}-${col}`);
@@ -220,8 +177,6 @@ export default class Board{
             for(let j = -1; j <= 1; j++){
                 let hix = row+i;
                 let why = col+j;
-
-                
                 
                 if((row+i) < 0 || (col+j) < 0 || hix > 14 || why > 14){
                     continue;
@@ -253,30 +208,30 @@ export default class Board{
     }
 
     Win(){
-        let counter;
+        let counter = 0;
         for (let i = 0; i < this.size; i++){
             for (let j = 0; j < this.size; j++){
-                if(this.mineField.theMineField[i][j].getReveal()){
-                    
+                if(this.mineField.theMineField[i][j].getReveal() == false){
                     counter++;
-                    
-                    
                 }
-                
             }
-            break;
+
         }
         // console.log(counter);
         if(counter == this.count){
-            console.log(counter + "." + this.count);
-            console.log("YOu WIN");          
+            document.getElementById("lose").style.display = "block";
+            document.getElementById("lose").style.backgroundColor = "green";
+            document.getElementById("my-dlg").show();        
+            document.getElementById("dlg-msg").innerHTML = "You Win! Play again?";
         }
     }  
 
     Lose(){
+        this.bombs();
         this.stopTimer();
         document.getElementById("lose").style.display = "block";
         document.getElementById("my-dlg").show();
+        document.getElementById("dlg-msg").innerHTML = "You Lose! Play again?";
     }
 
     Cancel(){
@@ -287,7 +242,6 @@ export default class Board{
     }
 
     Okay(){
-        
         location.reload();
     }
 
@@ -306,6 +260,10 @@ export default class Board{
 
     stopTimer(){
         window.clearInterval(this.timer);
+    }
+
+    updateFlagsUi(){
+        document.getElementById("totalFlags").innerHTML = this.flagCounter;
     }
 }
     

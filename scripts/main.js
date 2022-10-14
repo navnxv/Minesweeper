@@ -3,7 +3,7 @@
 import Board from './board.js'
 
 const size = 15;
-const count = 10;
+const count = 25;
 document.addEventListener('DOMContentLoaded', main);
 
 function main() {    

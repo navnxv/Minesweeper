@@ -10,6 +10,7 @@
 	border-radius: 10px;
 	margin-bottom: 50px;;
 	margin-top : 0px;
+	
 }
 
 /* .ResetBlock consists the time, the reset smiley button and the number of flags(bombs) */
@@ -54,7 +55,8 @@ table{
 }
 /* designing the table data in the table rows to rsiplay them as blocks of minesweeper */
 .cell{
-	font-size: 1.5rem;
+	font-weight: bold;
+	font-size: 1rem;
 	text-align: center;
 	border-radius: 5px;
 	border:1px solid rgb(235, 235, 235);
@@ -90,8 +92,7 @@ table{
 dialog{
 	position: absolute;
 	font-size: 30px;
-	
-	
+
 }
 
 .dlg-flex{
