@@ -6,10 +6,15 @@ Version: [if applicable]
 This project is Minesweeper game that we are building for assignment3. 
 index.html-> This file is the home page of the game
 mainGame.html-> This file contains the game UI
+
 main.js-> Creates the board
 Board.js-> Contains mostly the UI configuration in java and loooks for mines and flags. It also contains the event listeners
 MineField.js-> Contains the UI and the array that has the cells
 Cell.js-> Contains the cell data
+
+style-base.css-> Contains the same style for all the pages
+style-home.css-> Contains the styling for the home page only
+style-game.css-> Contains the styling for the game itself
 
 ####**Download/Install**
 ---------
