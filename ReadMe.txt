@@ -18,12 +18,13 @@ style-game.css-> Contains the styling for the game itself
 
 ####**Download/Install**
 ---------
- - [Download Zip]
+ - Clone this link 
+ https://github.com/pg23navpreet/Minesweeper.git
 
 
 ####**How to use**
 --------
- - Unzip the zip file
+
  - Launch the live-server to run the file
  - Click on Play Game button on the top-right of the page to navigate to the game
  - Click on any cell to start playing, first click will not be a mine
