@@ -1,5 +1,3 @@
-// Copyright (C) 2022 Navpreet Singh
-// This class handles the mine field and no UI
 // Importing cell.js
 import Cell from "./Cell.js";
 const MAX_SIZE = 10;
@@ -9,44 +7,25 @@ export default class MineField{
 
         // Initializing the class variables
         this.size = size;
-        this.theMineField = [];
+        this.theMineField = Array(this.size).fill().map(() => Array(this.size).fill().map(() => new Cell()));
         this.count = count;
         
         // Calling class functions
-        this.createMineField();
         this.placeMine();
         this.adjacentMines();
-    }
-
-    // Creating the mine field
-    createMineField(){
-        this.theMineField = [];
-        
-        // Making a 2 dimensional array to create a grid and contains an object from cell
-        for(let i = 0; i< this.size; i++){
-            this.theMineField[i] = [];
-            for(let j = 0; j < this.size; j++){
-                
-                this.theMineField[i][j] = new Cell();
-            }
-        }
     }
 
     // Placing mines on random cells on the grid
     placeMine(){
         for(let i = 0; i < this.count; i++){
             
-            let row = Math.floor(Math.random() * this.size);
-            let col = Math.floor(Math.random() * this.size);
+            let row, col;
+            do {
+                row = Math.floor(Math.random() * this.size);
+                col = Math.floor(Math.random() * this.size);
+            } while (this.theMineField[row][col].hasMine());
             
-            // Checking if the cell already has a mine and adding the mine if it doesn't contain a mine
-            if(!this.theMineField[row][col].hasMine()){
-                this.theMineField[row][col].addMine();
-            }
-
-            else{
-                i--;
-            }
+            this.theMineField[row][col].addMine();
         }        
     }
 
@@ -60,33 +39,20 @@ export default class MineField{
         for(let x = 0; x < this.size; x++){
             for(let y = 0; y < this.size; y++){
                 
-                if(this.theMineField[x][y].hasMine()){
-                    for(let i = -1; i <= 1; i++){
-                        if((x+i) < 0){
-                            continue;
-                        }
+                if(!this.theMineField[x][y].hasMine()) continue;
 
-                        for(let j = -1; j <= 1; j++){
-                            if((y+j) < 0){
-                                continue;
-                            }
+                for(let dx = -1; dx <= 1; dx++){
+                    for(let dy = -1; dy <= 1; dy++){
 
-                            if( i == 0 && j == 0){
-                                continue; 
-                            }
-                            
-                            else{
-                                let rowToCheck = x+i;
-                                let columnToCheck = y+j;
-                                
-                                if(rowToCheck <= 14 && columnToCheck <= 14){
-                                    this.theMineField[rowToCheck][columnToCheck].addAdjacentMine();
-                                }
-                            }              
-                        }
+                        let nx = x + dx;
+                        let ny = y + dy;
+
+                        if(nx < 0 || ny < 0 || nx >= this.size || ny >= this.size || (dx === 0 && dy === 0)) continue;
+
+                        this.theMineField[nx][ny].addAdjacentMine();
                     }
                 }
-            } 
+            }
         }
     }
 }

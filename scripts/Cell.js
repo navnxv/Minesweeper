@@ -70,6 +70,4 @@ export default class Cell{
     getAdj(){
         return this.adjacent;
     }
-
-
 }
