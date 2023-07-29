@@ -1,0 +1,54 @@
+<!--Copyright (C) 2022 Navpreet Singh, All Rights Reserved-->
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <!-- Linking .css to the html and adding titel to the page-->
+        <link rel = "stylesheet" href = "Styles/style-base.css">
+        <link rel = "stylesheet" href = "Styles/style-game.css">
+        <title>
+            Minesweeper by Nav
+        </title>
+    </head>
+    <body>
+        <div id="lose">  </div>
+        <!-- Adding header, which includes the name of the game and the navigation menu -->
+        <header class = "Heading">
+            <h1>Minesweeper</h1>
+            <nav>  
+                <a href = "index.html">Home</a>
+                <a href = "mainGame.html">Play Game</a>
+             </nav>
+        </header>
+
+        <!-- Making a game window -->
+        <div class = "MainWindow">
+            <div class = "ResetBlock">
+                <label class = "labelDesign" id="timer">0</label>
+                <button id="ResetButton"><img src = "/Images/smile.png" alt = "Reset" class = "SmileyImage"></button>
+                <label class = "labelDesign" id="totalFlags"></label>
+            </div>
+
+            <dialog id = "my-dlg" open>
+                <div id="dlg-msg"> </div>
+                <div class = "dlg-flex">
+                    <button id = "cancel-btn"> Exit?</button>
+                    <button id = "ok-btn"> Go Again</button>
+                </div>
+            </dialog>
+            <div id="CancelPlay">   </div>
+            <div class = "MainGame" id = "game-board">
+                <!-- Making a table to make the game work -->
+                <!--Generating Javascript here-->
+            </div>
+        </div>
+        
+        <!-- Adding a footer -->
+        <footer>
+            Copyright &copy 2022 Navpreet Singh, All Rights Reserved
+        </footer>
+        <script type = "module" src = "./scripts/main.js"></script>
+        
+    </body>
+    
+</html>
